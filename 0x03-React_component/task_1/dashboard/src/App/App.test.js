@@ -53,5 +53,8 @@ describe('App component', () => {
     wrapper.instance().handleKeyDown({ ctrlKey: true, key: "h" });
     expect(logOutMock).toHaveBeenCalled();
     expect(window.alert).toHaveBeenCalledWith("Logging you out");
+
+    jest.restoreAllMocks();
+    wrapper.unmount();
   });
 });
