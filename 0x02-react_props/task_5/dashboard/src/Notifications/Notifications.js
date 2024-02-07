@@ -1,12 +1,12 @@
 import React from "react";
 import "./Notifications.css";
 import closeIcon from "../assets/close-icon.png";
-import { getLatestNotification } from "../utils/utils";
 import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
 import NotificationItemShape from "./NotificationItemShape";
 
-export default function Notifications({ displayDrawer }) {
+
+export default function Notifications({ displayDrawer, listNotifications}) {
   return (
     <React.Fragment>
       {displayDrawer ? (

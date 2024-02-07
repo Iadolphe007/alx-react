@@ -1,11 +1,11 @@
 import React from "react";
 import App from "./App";
-import Notifications from "../Notifications/Notifications";
-import Header from "../Header/Header";
 import Login from "../Login/Login";
+import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { shallow } from "enzyme";
 import Notifications from "../Notifications/Notifications";
+import CourseList from "../CourseList/CourseList";
+import { shallow } from "enzyme";
 
 describe("App tests", () => {
   it("renders without crashing", () => {

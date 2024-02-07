@@ -1,12 +1,12 @@
 import React from "react";
-import './Notification.css';
+import "./Notifications.css";
 import PropTypes from "prop-types";
 
 export default function NotificationItem({type, html, value}) {
     return (
         <>
-            <li data-notification-type={type}>{value}</li>
-            <li dangerouslySetInnerHTML={{__html: html}}>{value}</li>
+            {type && value ? <li data-notification-type={type}>{value}</li> : null}
+            {html ? <li data-urgent dangerouslySetInnerHTML={{ __html: html }}></li> : null}
         </>
     );
 }
