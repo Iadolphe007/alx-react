@@ -9,12 +9,27 @@ class Notifications extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      prevLength: 0,
+    };
+
     this.markAsRead = this.markAsRead.bind(this);
   }
 
   markAsRead(id) {
     console.log(`Notification ${id} has been marked as read`);
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.listNotifications.length > this.state.prevLength;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.listNotifications !== this.props.listNotifications) {
+      this.setState({ prevLength: prevProps.listNotifications.length });
+    }
+  }
+
 
   render() {
     return (
