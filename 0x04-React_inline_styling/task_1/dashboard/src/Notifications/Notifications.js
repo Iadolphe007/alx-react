@@ -4,6 +4,7 @@ import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
 import NotificationItemShape from "./NotificationItemShape";
 import { StyleSheet, css } from 'aphrodite';
+StyleSheetTestUtils.suppressStyleInjection;
 
 class Notifications extends Component {
   constructor(props) {
