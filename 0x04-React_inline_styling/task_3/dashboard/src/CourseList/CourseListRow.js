@@ -4,14 +4,14 @@ import { StyleSheet, css } from 'aphrodite';
 
 export default function CourseListRow({ isHeader, textFirstCell, textSecondCell}) {
     return(
-        <tr style={css(styles.td)}>
+        <tr style={css(styles.tr)}>
             {isHeader ? (
                 textSecondCell === null ? (
-                    <th colSpan={2}>{textFirstCell}</th>
+                    <th style={css(styles.th)}colSpan={2}>{textFirstCell}</th>
                 ) : (
                     <>
                         <th style={css(styles.th)}>{textFirstCell}</th>
-                        <th style={css(styles.td)}>{textSecondCell}</th>
+                        <th style={css(styles.th)}>{textSecondCell}</th>
                     </>
                 )
             ): (
