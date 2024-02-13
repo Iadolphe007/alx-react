@@ -9,7 +9,7 @@ import { getLatestNotification } from "../utils/utils";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection
+
 
 
 

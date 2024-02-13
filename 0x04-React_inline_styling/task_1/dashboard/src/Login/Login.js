@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, css } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection
+
 
 
 export default function Login() {

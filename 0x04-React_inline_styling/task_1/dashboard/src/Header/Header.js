@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/holberton-logo.jpg";
 import { StyleSheet, css } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection;
+
 
 function Header() {
   return (
