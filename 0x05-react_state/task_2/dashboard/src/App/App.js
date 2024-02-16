@@ -9,12 +9,17 @@ import { getLatestNotification } from "../utils/utils";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from 'aphrodite';
+import { AppContext, user } from "./AppContext";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    this.state = {displayDrawer: false};
+    this.state = {
+      displayDrawer: false,
+      user: user,
+      logOut: this.logOut,
+    };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
@@ -53,10 +58,31 @@ class App extends React.Component {
     document.removeEventListener("keydown", this.handleKeyDown)
   }
 
+  logIn(email, password) {
+    this.setState({
+      user: {
+        email: "",
+        password: "",
+        isLoggedIn: true,
+      },
+    });
+  }
+
+  logout() {
+    this.setState({
+      user: user,
+    });
+  }
  
   render() {
     return (
-      <React.Fragment>
+      <AppContext.Provider
+      value={{
+        user: this.state.user,
+        logout: this.state.logOut,
+      }}
+      >
+        <React.Fragment>
         <div className={css(styles.App)}>
           <div className="heading-section">
             <Notifications
@@ -67,27 +93,31 @@ class App extends React.Component {
             />
             <Header />
           </div>
-          {this.props.isLoggedIn ? (
+          {this.state.user.isLoggedIn ? (
             <BodySectionWithMarginBottom title="Course list">
               <CourseList listCourses={this.listCourses} />
             </BodySectionWithMarginBottom>
           ) : (
             <BodySectionWithMarginBottom title="Log in to continue">
-              <Login />
+              <Login logIn={this.logIn}/>
             </BodySectionWithMarginBottom>
           )}
           <BodySection title="News from the school">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at tempora odio, necessitatibus repudiandae reiciendis cum nemo sed asperiores ut molestiae eaque aliquam illo ipsa
-              iste vero dolor voluptates.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at 
+              tempora odio, necessitatibus repudiandae reiciendis cum nemo.
             </p>
           </BodySection>
           <Footer />
         </div>
       </React.Fragment>
+      </AppContext.Provider>
     );
   }
 }
+      
+      
+
 const styles = StyleSheet.create({
   App: {
     height: "100vh",
