@@ -1,19 +1,24 @@
-const { Seq } = require('immutable');
+import { Seq } from 'immutable';
 
-function printBestStudents(grades) {
-    // Convert the grades object to an Immutable Map
-    const gradesMap = fromJS(grades);
+export default function printBestStudents(object) {
+  const seq = Seq(object);
 
-    // Use Seq to transform and filter the data
-    const updatedGrades = Seq(gradesMap)
-        .filter(student => student.get('score', 0) >= 70)
-        .map(student =>
-            student
-                .update('firstName', firstName => firstName.charAt(0).toUpperCase() + firstName.slice(1))
-                .update('lastName', lastName => lastName.charAt(0).toUpperCase() + lastName.slice(1))
-        )
-        .toObject(); // Convert back to a plain JavaScript object
+  const filtered = seq.filter((student) => {
+    student.firstName.charAt(0).toUpperCase();
+    return student.score > 70;
+  });
 
-    // Print the updated grades
-    console.log(updatedGrades);
+  function capFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  const JSObject = filtered.toJS();
+
+  Object.keys(JSObject).map((key) => {
+    JSObject[key].firstName = capFirstLetter(JSObject[key].firstName);
+    JSObject[key].lastName = capFirstLetter(JSObject[key].lastName);
+    return JSObject[key];
+  });
+
+  console.log(JSObject);
 }
