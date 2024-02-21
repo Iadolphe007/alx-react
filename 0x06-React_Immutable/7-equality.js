@@ -1,7 +1,7 @@
 import { is } from 'immutable';
 
 export default function areMapsEqual(page1, page2) {
-    // return(page1.equals(page2));
-    // all method work the same can be used vice-versa
+  // return(page1.equals(page2));
+  // all method work the same can be used vice-versa
   return is(page1, page2);
 }
