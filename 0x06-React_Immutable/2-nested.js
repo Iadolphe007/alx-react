@@ -1,7 +1,6 @@
-const { Map, List } = require('immutable');
+import { fromJS } from 'immutable';
 
 export default function accessImmutableObject(object, array) {
-    object = Map(object);
-    array = List(array);
-    return(object.getIn(array));
+    const mappedObject = fromJS(object);
+    return mappedObject.getIn(array,undefined);
 }
