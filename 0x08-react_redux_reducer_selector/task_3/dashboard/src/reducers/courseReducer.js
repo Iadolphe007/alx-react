@@ -15,7 +15,7 @@ import {
         });
   
       case SELECT_COURSE:
-        return state.map((course, index) => {
+        return state.map((course) => {
           const current = {
             ...course,
           };
