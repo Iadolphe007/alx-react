@@ -10,7 +10,13 @@ import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBot
 import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from 'aphrodite';
 import { AppContext, user } from "./AppContext";
-import {connect} from 'readux'
+import {connect} from 'readux';
+import {displayNotificationDrawer, hideNotificationDrawer} from "../actions/uiActionCreators";
+
+const  listCourses = [
+  {id: 1, name: 'ES6', credit: 60},
+  {id: 2, name: 'Webpack', credit: 20},
+  {id: 3, name: 'React', credit: 40}];
 
 class App extends React.Component {
   constructor(props) {
@@ -20,38 +26,27 @@ class App extends React.Component {
       displayDrawer: false,
       user: user,
       logOut: this.logOut,
-
-      listNotifications: [
-        { id: 1, type: "default", value: "New course available" },
-        { id: 2, type: "urgent", value: "New resume available" },
-        { id: 3, type: "urgent", html: getLatestNotification() },
-      ],
+      listNotifications,
     };
-    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
-    this.handleHideDrawer = this.handleHideDrawer.bind(this);
-    this.logIn = this.logIn.bind(this);
-    this.logOut = this.logOut.bind(this);
-    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
+    // this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    // this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    // this.logIn = this.logIn.bind(this);
+    // this.logOut = this.logOut.bind(this);
+    // this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
   }
 
-  listCourses = [
-    {id: 1, name: 'ES6', credit: 60},
-    {id: 2, name: 'Webpack', credit: 20},
-    {id: 3, name: 'React', credit: 40}];
+  // handleDisplayDrawer() {
+  //   this.setState({displayDrawer: true});
+  // }
 
-  handleDisplayDrawer() {
-    this.setState({displayDrawer: true});
-  }
-
-  handleHideDrawer() {
-    this.setState({displayDrawer: false});
-  }
+  // handleHideDrawer() {
+  //   this.setState({displayDrawer: false});
+  // }
   handleKeyDown(event) {
     if(event.ctrlKey && event.key === 'h') {
       alert('Logging you out');
       this.props.logout();
     }
-
   }
 
   componentDidMount() {
@@ -138,18 +133,31 @@ const styles = StyleSheet.create({
 
 App.defaultProps = {
   isLoggedIn: false,
+  displayDrawer: false,
+  displayNotificationDrawer: () => {},
+  hideNotificationDrawer: () => {},
 };
 
 App.propTypes = {
   isLoggedIn: PropTypes.bool,
+  displayDrawer: PropTypes.bool,
+  displayNotificationDrawer: PropTypes.func,
+  hideNotificationDrawer: PropTypes.func,
 };
 
 
 export const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.get('isLoggedIn'),
-    
+    displayDrawer: state.get('isNotificationDrawerVisible'),
   }
 }
 
-export default connect(mapStateToProps)(App);
+export const mapDispatchToProps = (dispatch) => {
+  return {
+    displayNotificationDrawer: () => dispatch(displayNotificationDrawer()),
+    hideNotificationDrawer: () => dispatch(hideNotificationDrawer()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
