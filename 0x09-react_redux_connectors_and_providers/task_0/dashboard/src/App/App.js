@@ -10,6 +10,7 @@ import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBot
 import BodySection from "../BodySection/BodySection";
 import { StyleSheet, css } from 'aphrodite';
 import { AppContext, user } from "./AppContext";
+import {connect} from 'readux'
 
 class App extends React.Component {
   constructor(props) {
@@ -125,7 +126,6 @@ class App extends React.Component {
   }
 }
       
-      
 
 const styles = StyleSheet.create({
   App: {
@@ -145,4 +145,10 @@ App.propTypes = {
 };
 
 
-export default App;
+export const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.get('isLoggedIn'),
+  }
+}
+
+export default connect(mapStateToProps)(App);

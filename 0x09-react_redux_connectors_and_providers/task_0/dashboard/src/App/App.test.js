@@ -8,6 +8,9 @@ import CourseList from "../CourseList/CourseList";
 import { shallow } from "enzyme";
 import { StyleSheetTestUtils } from "aphrodite";
 
+import { fromJS } from "immutable";
+
+
 beforeEach(() => {
   StyleSheetTestUtils.suppressStyleInjection();
 });
@@ -120,5 +123,17 @@ describe("markNotificationAsRead works as intended", () => {
     expect(wrapper.state().listNotifications[3]).toBe(undefined);
 
     wrapper.unmount();
+  });
+});
+
+describe("<App />", () => {
+  it("mapStateToProps returns the right object from user Login", () => {
+    let state = fromJS({
+      isUserLoggedIn: true,
+    });
+
+    const result = mapStateToProps(state);
+
+    expect(result).toEqual({ isLoggedIn: true });
   });
 });
