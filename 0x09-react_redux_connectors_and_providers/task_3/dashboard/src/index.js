@@ -4,7 +4,7 @@ import App from "./App/App";
 import { Provider } from "react-redux";
 import uiReducer from "./reducers/uiReducer";
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
 
 const store = configureStore({
   reducer: uiReducer, 
@@ -13,8 +13,8 @@ const store = configureStore({
     isUserLoggedIn: false,
     user: {}
   },
-  middleware: [...getDefaultMiddleware()],
-  enhancers: [composeWithDevTools()]
+  middleware: [...getDefaultMiddleware(), thunk],
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
 ReactDOM.render(
