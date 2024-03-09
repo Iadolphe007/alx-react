@@ -8,17 +8,12 @@ import App from "./App/App";
 import uiReducer, { initialState } from "./reducers/uiReducer";
 import { Map } from "immutable";
 
-// const store = createStore(
-//   uiReducer,
-//   Map(initialState),
-//   composeWithDevTools(applyMiddleware(thunk))
-// );
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   uiReducer,
-  Map(initialState),
+  initialState,
   composeEnhancers(applyMiddleware(thunk))
 );
 
