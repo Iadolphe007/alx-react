@@ -1,26 +1,26 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createStore, applyMiddleware, compose } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { Provider } from "react-redux";
-import thunk from "redux-thunk";
 import App from "./App/App";
-import uiReducer, { initialState } from "./reducers/uiReducer";
-import { Map } from "immutable";
-
+import { Provider } from "react-redux";
+import uiReducer from "./reducers/uiReducer";
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  uiReducer,
-  initialState,
-  composeEnhancers(applyMiddleware(thunk))
-);
+const store = configureStore({
+  reducer: uiReducer, 
+  preloadedState: {
+    isNotificationDrawerVisible: false,
+    isUserLoggedIn: false,
+    user: {}
+  },
+  middleware: composeEnhancers([...getDefaultMiddleware()]),
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+     <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
